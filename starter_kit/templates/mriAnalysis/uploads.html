@@ -1,0 +1,127 @@
+{% extends 'mriAnalysis/landing.html' %}
+{% block title %}KEEN EYE|Uploads{% endblock title%}
+{% load staticfiles %}
+{% block content%}
+<style>
+    #overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 40px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+</style>
+<div class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}  style="color:green">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                            <h4 class="title"><a href="{% url 'mriAnalysis:uploadform' %}"><button class="btn btn-info btn-fill btn-wd waves-effect"><i class="fa fa-plus mr-1"></i>Analysis Request</button></a></h4>
+                                <p class="category">Click to upload Patient Imaging Request</p></p>                            </div>
+                            <div class="content">
+                                <form  class="pull-left" role="form"  method="POST" action="{% url 'mriAnalysis:findpatient'%}">{% csrf_token %}
+                                    <input type="text" placeholder="Patient Number to Search" class="form-control border-input" name="id"/>
+                                    <br>
+
+                                    <button class="btn btn-info btn-fill btn-wd" type="submit">Search</button>
+                                </form>
+                            <h4 class="title pull-right">Previous Uploads and Analysis</h4>
+                                {% if results %}
+                            <table class="table table-stripped">
+
+            <thead>
+                <th><b>Request Number</b></th>
+                <th><b>Patient Number</b></th>
+                <th><b>Provided On</b></th>
+                <th><b>Diagnosis Status</b></th>
+                <th><b>Link To Results </b></th>
+                   </thead>
+                   <tbody>
+                   {% for obj in results %}
+                   <tr>
+                   <td>{{ obj.requestNumber }}</td>
+                   <td>{{ obj.patient_num}}</td>
+                   <td>{{ obj.requestDate}}</td>
+                   <td>{% if obj.processed %}
+                       <font color="green">Processing Complete</font>
+                       {% else %}
+                       <font color="orange"> Awaiting Processing </font>
+                       {% endif %}
+                   </td>
+
+                   <td>{% if obj.processed %}
+                       <a href="{% url 'mriAnalysis:results' obj.requestNumber %}" target="_blank"> <font color="green" style="text-decoration:underline">View Results</font></a>
+                       {% else %}
+                       <a><font color="orange" style="text-decoration:underline"> <a  onclick="processing()" href="{% url 'mriAnalysis:process' obj.requestNumber %}"> Request Processing </a></font></a>
+                       {% endif %}
+                   </td>
+                   </tr>
+
+
+                   {% endfor %}
+                   </tbody>
+
+
+            </table>
+                                {% else %}
+                                <p>Sorry {{request.user}} No Recent uploads made for your account</p>
+                                {% endif %}
+
+
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div id="overlay" >
+
+  <div id="text">
+      <center><img src="{% static 'brain.gif' %}"></center>
+      Processing MRI...
+      </div>
+
+</div>
+<script>
+window.onload = function () {
+        document.onkeydown = function (e) {
+            return (e.which || e.keyCode) != 116;
+        };
+    }
+
+    function processing() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+</script>
+{% endblock content %}

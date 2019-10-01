@@ -1,0 +1,75 @@
+    {% load staticfiles %}
+
+{% block content %}
+
+     <div class="row">
+
+    <div class="col-md-2"></div>
+         <div class="col-md-8" style="background-color:white">
+
+             {% for obj in diagnosis %}
+
+             <h4>Diagnosis Report for Request Number {{data.requestNumber}}</h4>
+             <h5> Patient Number: {{ data.patient_num }}</h5>
+             <h5> Requesting Practitioner : {{ data.requestingPractitioner.username }}</h5>
+             <img style="width:120px;height:120px;margin-left:300px" src="{% static 'logo1.png' %}"/>
+
+            <div class="row">
+
+                 <div class=" col-md-4">
+                     <img class="card-img-top" style="width:240px;height:600px;"src="{{data.mri_Image.url}}" alt="T1 Image">
+                     <p>Original MRI</p>
+                 </div>
+
+                 <!--<div class=" col-md-2">-->
+
+                     <!--<p></p>-->
+                 <!--</div>-->
+                 <div class=" col-md-6">
+                     <img class="card-img-top " style="width:340px;height:280px;padding-right:5px" src="{{obj.segmented_Image.url}}" alt="T2 Image">
+                     <p>Segmented MRI</p>
+                 </div>
+
+
+
+
+
+            </div>
+             <br/><br/><br/><br/><br/><br/><br/>
+               <table class="table table-stripped">
+
+            <thead>
+                <th><b>Radiological Findings</b></th>
+                <th><b>Technique Employed</b></th>
+           
+                    <th><b>Healthy Percentage</b></th>
+                <th><b>Requested On</b></th>
+                   </thead>
+                   <tbody>
+                   <tr>
+                   <td>{{ obj.diagnosis }}</td>
+                       <td>{{ obj.technique }}</td>
+                       <td>{{ obj.impressions }}</td>
+                     
+
+                       {% if obj.good_percentage >= 80.00 %}
+                       <td><font color="green" style="text-decoration:underline">{{ obj.good_percentage }}</font></td>
+                       {% else %}
+                       <td><font color="red" style="text-decoration:underline">{{ obj.good_percentage }}</font></td>
+                       {% endif %}
+                   <td>{{ obj.addedOn }}</td>
+
+                   </tr>
+                   </tbody>
+
+
+            </table>
+             {% endfor %}
+             <br/>
+             <br/><hr/>
+             <i>Generated On {{ today }}</i>
+             <div class="col-md-2"></div>
+     </div>
+     </div>
+
+{% endblock content%}
