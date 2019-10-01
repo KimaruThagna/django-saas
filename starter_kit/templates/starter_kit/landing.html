@@ -94,19 +94,19 @@
 
 
                 <li class="active">
-                    <a href="{% url 'mriAnalysis:landing' %}">
+                    <a href="{% url 'starter_kit:landing' %}">
                         <i class="ti-panel"></i>
                         <p>MRI PROCESSING</p>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'mriAnalysis:landing' %}">
+                    <a href="{% url 'starter_kit:landing' %}">
                         <i class="ti-panel"></i>
                         <p style="opacity:0.6">PET PROCESSING</p>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'mriAnalysis:landing' %}">
+                    <a href="{% url 'starter_kit:landing' %}">
                         <i class="ti-panel"></i>
                         <p style="opacity:0.6">CT SCAN PROCESSING</p>
                     </a>
@@ -140,7 +140,7 @@
 						<li>
 						    {% if request.user.is_authenticated %}
 
-                            <a href="{% url 'mriAnalysis:logout' %}">
+                            <a href="{% url 'starter_kit:logout' %}">
 								<i class="ti-settings"></i>
 
 								<p>Logout</p>
@@ -177,7 +177,7 @@
                                         <img src="{%static 'body.png'%}" usemap="#mrimap">
                                         </center>
                                         <map name="mrimap" style="background-color:red">
-                                            <area shape="rect" coords="120,30,260,90" href="{% url 'mriAnalysis:uploads' %}" alt="alttext">
+                                            <area shape="rect" coords="120,30,260,90" href="{% url 'starter_kit:uploads' %}" alt="alttext">
                                         </map>
                                     </div>
 

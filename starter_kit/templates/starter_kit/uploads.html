@@ -51,48 +51,9 @@
 
                                     <button class="btn btn-info btn-fill btn-wd" type="submit">Search</button>
                                 </form>
-                            <h4 class="title pull-right">Previous Uploads and Analysis</h4>
-                                {% if results %}
-                            <table class="table table-stripped">
+                            <h4 class="title pull-right">Previous Uploads </h4>
 
-            <thead>
-                <th><b>Request Number</b></th>
-                <th><b>Patient Number</b></th>
-                <th><b>Provided On</b></th>
-                <th><b>Diagnosis Status</b></th>
-                <th><b>Link To Results </b></th>
-                   </thead>
-                   <tbody>
-                   {% for obj in results %}
-                   <tr>
-                   <td>{{ obj.requestNumber }}</td>
-                   <td>{{ obj.patient_num}}</td>
-                   <td>{{ obj.requestDate}}</td>
-                   <td>{% if obj.processed %}
-                       <font color="green">Processing Complete</font>
-                       {% else %}
-                       <font color="orange"> Awaiting Processing </font>
-                       {% endif %}
-                   </td>
-
-                   <td>{% if obj.processed %}
-                       <a href="{% url 'mriAnalysis:results' obj.requestNumber %}" target="_blank"> <font color="green" style="text-decoration:underline">View Results</font></a>
-                       {% else %}
-                       <a><font color="orange" style="text-decoration:underline"> <a  onclick="processing()" href="{% url 'mriAnalysis:process' obj.requestNumber %}"> Request Processing </a></font></a>
-                       {% endif %}
-                   </td>
-                   </tr>
-
-
-                   {% endfor %}
-                   </tbody>
-
-
-            </table>
-                                {% else %}
                                 <p>Sorry {{request.user}} No Recent uploads made for your account</p>
-                                {% endif %}
-
 
                                     </div>
                                     <hr>
@@ -104,14 +65,7 @@
                         </div>
                     </div>
                 </div>
-<div id="overlay" >
 
-  <div id="text">
-      <center><img src="{% static 'brain.gif' %}"></center>
-      Processing MRI...
-      </div>
-
-</div>
 <script>
 window.onload = function () {
         document.onkeydown = function (e) {
