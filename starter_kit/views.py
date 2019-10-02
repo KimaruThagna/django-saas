@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect,reverse,get_object_or_4
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .forms import *
 #saas-admin checkmate123
 # Create your views here.
 # home page and also login page
@@ -46,15 +47,15 @@ def Uploadform(request):
             form_valid(dataform,PatientRecordForm)
             dataform.save()
             messages.success(request,'Patient Data sucessfully uploaded')
-            return HttpResponseRedirect(reverse('mriAnalysis:uploads'))
+            return HttpResponseRedirect(reverse('starter_kit:uploads'))
         else:
             messages.error(request, 'ERROR. Upload failed. Kindly Correcr errors and try again')
-            return HttpResponseRedirect(reverse('mriAnalysis:uploadform'))
+            return HttpResponseRedirect(reverse('starter_kit:uploadform'))
     else:
         con={
             "fillform":dataform
         }
-        return render(request, 'mriAnalysis/uploadform.html', context=con)
+        return render(request, 'starter_kit/uploadform.html', context=con)
 
 # previous uploads ordered from the most recent
 @login_required()
