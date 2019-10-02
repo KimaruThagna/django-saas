@@ -96,10 +96,16 @@
                 <li class="active">
                     <a href="{% url 'starter_kit:landing' %}">
                         <i class="ti-panel"></i>
-                        <p>MRI PROCESSING</p>
+                        <p>X-Ray PROCESSING</p>
                     </a>
                 </li>
                 <li>
+                    <a href="{% url 'starter_kit:landing' %}">
+                        <i class="ti-panel"></i>
+                        <p style="opacity:0.6">MRI PROCESSING</p>
+                    </a>
+                </li>
+                 <li>
                     <a href="{% url 'starter_kit:landing' %}">
                         <i class="ti-panel"></i>
                         <p style="opacity:0.6">PET PROCESSING</p>
@@ -170,14 +176,14 @@
                             </p>
                             </div>
                             <div class="content">
-                                <h4 class="title"><i class="fa fa-plus mr-1"></i>SELECT REGION YOU WISH TO UPLOAD MRI SCANS ON FOR ANALYSIS</h4>
+                                <h4 class="title"><i class="fa fa-plus mr-1"></i>SELECT REGION YOU WISH TO UPLOAD MEDICAL SCANS ON FOR ANALYSIS</h4>
                                 <div style="width:80%">
 
                                         <center>
                                         <img src="{%static 'body.png'%}" usemap="#mrimap">
                                         </center>
                                         <map name="mrimap" style="background-color:red">
-                                            <area shape="rect" coords="120,30,260,90" href="{% url 'starter_kit:uploads' %}" alt="alttext">
+                                            <area shape="rect" coords="120,270,300,330" href="{% url 'starter_kit:uploads' %}" alt="alttext">
                                         </map>
                                     </div>
 

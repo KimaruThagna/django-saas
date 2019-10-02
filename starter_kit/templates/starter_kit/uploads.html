@@ -1,4 +1,4 @@
-{% extends 'mriAnalysis/landing.html' %}
+{% extends 'starter_kit/landing.html' %}
 {% block title %}KEEN EYE|Uploads{% endblock title%}
 {% load staticfiles %}
 {% block content%}
@@ -42,15 +42,10 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                            <h4 class="title"><a href="{% url 'mriAnalysis:uploadform' %}"><button class="btn btn-info btn-fill btn-wd waves-effect"><i class="fa fa-plus mr-1"></i>Analysis Request</button></a></h4>
+                            <h4 class="title"><a href="{% url 'starter_kit:uploadform' %}"><button class="btn btn-info btn-fill btn-wd waves-effect"><i class="fa fa-plus mr-1"></i>Analysis Request</button></a></h4>
                                 <p class="category">Click to upload Patient Imaging Request</p></p>                            </div>
                             <div class="content">
-                                <form  class="pull-left" role="form"  method="POST" action="{% url 'mriAnalysis:findpatient'%}">{% csrf_token %}
-                                    <input type="text" placeholder="Patient Number to Search" class="form-control border-input" name="id"/>
-                                    <br>
 
-                                    <button class="btn btn-info btn-fill btn-wd" type="submit">Search</button>
-                                </form>
                             <h4 class="title pull-right">Previous Uploads </h4>
 
                                 <p>Sorry {{request.user}} No Recent uploads made for your account</p>

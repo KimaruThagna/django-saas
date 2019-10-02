@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect,reverse,get_object_or_4
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-#from PIL import Image
+#saas-admin checkmate123
 # Create your views here.
 # home page and also login page
 def Home(request):
@@ -31,11 +31,30 @@ def Landing(request):
     con={}
     return render(request, 'starter_kit/landing.html', context=con)
 
-
 @login_required()
 def Uploadform(request):
 
-        return render(request, 'starter_kit/uploadform.html', context=con)
+    def form_valid(self, form):
+
+        if form == PatientRecordForm:
+            self.instance.requestingPractitioner = request.user# autofill with current user
+
+    dataform=PatientRecordForm()
+    if request.method=='POST':
+        dataform=PatientRecordForm(request.POST,request.FILES)
+        if dataform.is_valid():
+            form_valid(dataform,PatientRecordForm)
+            dataform.save()
+            messages.success(request,'Patient Data sucessfully uploaded')
+            return HttpResponseRedirect(reverse('mriAnalysis:uploads'))
+        else:
+            messages.error(request, 'ERROR. Upload failed. Kindly Correcr errors and try again')
+            return HttpResponseRedirect(reverse('mriAnalysis:uploadform'))
+    else:
+        con={
+            "fillform":dataform
+        }
+        return render(request, 'mriAnalysis/uploadform.html', context=con)
 
 # previous uploads ordered from the most recent
 @login_required()
