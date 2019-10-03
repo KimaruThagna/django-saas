@@ -20,7 +20,9 @@ urlpatterns = [
     url(r'^$',views.Home, name='home'),
     url(r'^logout/$',views.GoodBye, name='logout'),
     url(r'^home/$',views.Landing, name='landing'),
+    url(r'^charge/$',views.app_charge, name='charge'),
     url(r'^uploads/$',views.UploadPage, name='uploads'),
     url(r'^upload-request/$',views.Uploadform, name='uploadform'),
     url(r'^results/(?P<id>.+)$',views.ResultsPage, name='results'),
+    url(r'^processing/(?P<requestNum>.+)/$',views.process_image, name='process'),
 ]

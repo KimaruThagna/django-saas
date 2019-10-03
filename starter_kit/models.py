@@ -11,12 +11,13 @@ def requestNumGenerator():
 
 
 class PatientData(models.Model):
-    requestNumber=models.CharField(max_length=200,null=False,unique=True,default=requestNumGenerator)
-    patient_num=models.CharField(max_length=200,null=False)
+    requestNumber=models.CharField(max_length=200,unique=True,default=requestNumGenerator)
+    patient_num=models.CharField(max_length=200)
     requestDate=models.DateTimeField(default=timezone.now())
     requestingPractitioner=models.ForeignKey(User,on_delete=models.CASCADE)
-    medical_Image=models.ImageField(upload_to='medical',null=False,validators=[validate_file_shape,validate_file_extension])
-    processed=models.BooleanField(default=False,null=False)
+    medical_Image=models.ImageField(upload_to='medical')
+    #validators = [validate_file_shape, validate_file_extension]
+    processed=models.BooleanField(default=False)
     lastUpdated = models.DateTimeField(auto_now=True, auto_now_add=False)
     addedOn = models.DateTimeField(default=timezone.now())
 

@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .forms import *
+import json
+from .payments import *
 #saas-admin checkmate123
 # Create your views here.
 # home page and also login page
@@ -60,10 +62,29 @@ def Uploadform(request):
 # previous uploads ordered from the most recent
 @login_required()
 def UploadPage(request):
-    con = {}
+    results = PatientData.objects.all().order_by('-addedOn')
+    con = {
+        'results': results
+    }
     return render(request, 'starter_kit/uploads.html', context=con)
 # Web page version of downloadable PDF
 @login_required()
 def ResultsPage(request,id):
     con = {}
     return render(request, 'starter_kit/results.html', context=con)
+
+
+@login_required()
+def process_image(request, requestNum):
+
+    patientRecord = get_object_or_404(PatientData, requestNumber=requestNum)
+    PatientData.objects.filter(requestNumber=patientRecord.requestNumber).update(processed=True)
+
+    return HttpResponseRedirect(reverse('mriAnalysis:results', kwargs={'id': requestNum}))
+
+def app_charge(request):
+    amount = 5100
+    payment_id = request.form['razorpay_payment_id']
+    client.payment.capture(payment_id, amount)
+    print(json.dumps(client.payment.fetch(payment_id)))
+    return json.dumps(client.payment.fetch(payment_id))
