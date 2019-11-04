@@ -20,6 +20,7 @@
 {% endif %}
 
              <h4>Image Analysis Request Upload Form</h4>
+             <p>To use the service, pay a fee of $50 and get immediate results</p>
 
              <img style="width:120px;height:120px;margin-left:300px" src="{% static 'logo1.png' %}"/>
               <form action="charge" method="POST">
@@ -39,6 +40,8 @@
         </script>
         <input type="hidden" name="shopping_order_id" value="21">
     </form>
+
+
          <form role="form" enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
 
                                             <div class="form-group">

@@ -20,6 +20,8 @@ class PatientData(models.Model):
     processed=models.BooleanField(default=False)
     lastUpdated = models.DateTimeField(auto_now=True, auto_now_add=False)
     addedOn = models.DateTimeField(default=timezone.now())
+    paid = models.BooleanField(default=False)
+    pneumonia = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural='Patients data'
